@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <p>{{med}}</p>
+    <div style="border: 2px solid black;
+    padding: 10px;
+    max-width: 400px;">
+    <h1>Medicines in Database</h1>
+    {% for med in meds %}
+        <p>Medicine Name: <b>{{med.med_name|linebreaksbr}}</b></p>
+        <p>Delivery Method: <b>{{med.delivery_method}}</b></p>
+        <time>Date Added: <b>{{ med.date_added }}</b></time>
+    {% endfor %}
+    </div>
+    <br>
+    <button onclick="location.href='{% url 'new_med' %}'">Add Medicine</button>
 </body>
 </html>
