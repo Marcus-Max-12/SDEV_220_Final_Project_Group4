@@ -6,9 +6,13 @@
     max-width: 400px;">
     <h1>Medicines in Database</h1>
     {% for med in meds %}
+        <div onclick="location.href='selected_med/{{ med.id }}/'" style="border: 1px solid black;
+        padding: 10px;">
         <p>Medicine Name: <b>{{med.med_name|linebreaksbr}}</b></p>
         <p>Delivery Method: <b>{{med.delivery_method}}</b></p>
         <time>Date Added: <b>{{ med.date_added }}</b></time>
+        </div>
+        <br>
     {% endfor %}
     </div>
     <br>

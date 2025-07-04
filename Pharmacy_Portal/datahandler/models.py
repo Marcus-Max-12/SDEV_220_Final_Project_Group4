@@ -5,7 +5,7 @@ from django.db import models
 
 
 class Medicine(models.Model):
-    id= models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     med_name = models.CharField(max_length=128)
     delivery_method = models.CharField(max_length=128, default='')
     date_added=models.DateField(default=datetime.datetime.now(),editable=False)
