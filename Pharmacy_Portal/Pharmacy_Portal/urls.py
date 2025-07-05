@@ -20,5 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('landingpage.urls')),
-    path('pharmacyapp/', include('datahandler.urls'))
+    path('pharmacyportal/', include('datahandler.urls'))
 ]

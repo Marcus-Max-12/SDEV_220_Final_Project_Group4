@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <section style="float:left;">
+        <h1>Medicines</h1>
+    
+        <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px;"
+    >
+    
+            {% for med in meds %}
+                <div onclick="location.href='selected_med/{{ med.id }}/'" style="border: 1px solid black; padding: 10px;">
+                    <p>Medicine Name: <b>{{med.med_name|linebreaksbr}}</b></p>
+                    <p>Delivery Method: <b>{{med.delivery_method}}</b></p>
+                    <time>Date Added: <b>{{ med.date_added }}</b></time>
+                </div>
+            <br>
+            {% endfor %}
+        </div>
+        <br>
+        <button onclick="location.href='{% url 'new_med' %}'">Add Medicine</button>
+    </section>
+    <section style="float:right;">
+        <h1>Prescriptions</h1>
+        <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px;">
+
+        </div>
+    </section>
+</body>
+</html>
