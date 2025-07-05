@@ -1,6 +1,10 @@
 {% block content %}
 
-
-<h2>{{ selected.id }}</h2>
-
+<div>
+<h2>{{ selected.med_name }}</h2>
+<p>{{ selected.id }}</p>
+<form action="/pharmacyportal/delete_med/{{ selected.id }}/" onsubmit="return confirm('Are you sure?');">
+<button type="submit">Delete?</button>
+</form>
+</div>
 {% endblock %}
