@@ -19,11 +19,29 @@
         <br>
         <button onclick="location.href='{% url 'new_med' %}'">Add Medicine</button>
     </section>
-    <section style="float:right;">
+    <section style="float:right; margin-left: 20px;">
         <h1>Prescriptions</h1>
         <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px;">
-
-        </div>
-    </section>
+            {% for pres in prescription %}
+                 <div style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
+                <p>Patient: <b>{{ pres.patient_name }}</b></p>
+                <p>Medication: <b>{{ pres.medication }}</b></p>
+                <p>Doctor: <b>{{ pres.doctor_name }}</b></p>
+                <p>Dosage: <b>{{ pres.dosage }}</b></p>
+                <p>Quantity: <b>{{ pres.quantity }}</b></p>
+                <p>Status: <b>{% if pres.fulfillment %}fulfilled{% else %}Pending{% endif %}</b></p>
+                <time>Date: <b>{{ pres.date_prescribed }}</b></time>
+                </stlye>
+        
+            </div>
+        {% empty %}
+            <p>No prescriptions available.</p>
+        {% endfor %}
+    </div>
+    <br>
+    <button onclick="location.href='{% url 'new_pres' %}'">Add Prescription</button>
+    <br>
+    <button onclick="location.href='{% url 'list_pres' %}'">View Prescriptions</button>
+</section>
 </body>
 </html>

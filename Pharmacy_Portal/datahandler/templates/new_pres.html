@@ -1,0 +1,33 @@
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">New Prescription</h2>
+  
+  <div class="card">
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        
+        <!-- Dynamically Render Form Fields -->
+        {% for field in form %}
+        <div class="mb-3">
+          <label class="form-label">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}
+            <div class="form-text">{{ field.help_text }}</div>
+          {% endif %}
+          {% for error in field.errors %}
+            <div class="text-danger">{{ error }}</div>
+          {% endfor %}
+        </div>
+        {% endfor %}
+
+        <!-- Buttons -->
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="{% url 'pharmacyportal' %}" class="btn btn-secondary">Cancel</a>
+        <br>
+        <a href="{% url 'list_pres' %}" class="btn btn-secondary">Lists</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
