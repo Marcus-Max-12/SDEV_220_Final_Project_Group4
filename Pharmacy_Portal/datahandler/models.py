@@ -1,4 +1,5 @@
 import uuid, datetime
+from django.utils import timezone
 from django.conf import settings
 from django.db import models
 
@@ -36,8 +37,17 @@ class Prescription(Client):
 class Medicine(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     med_name = models.CharField(max_length=128)
-    delivery_method = models.CharField(max_length=128, default='')
-    date_added=models.DateField(default=datetime.datetime.now(),editable=False)
+    delivery_methods = {
+        "CAP": "Capsule",
+        "LIQ": "Liquid",
+        "PIL": "Pill",
+        "INJ": "Injection",
+        "SKN": "Transdermal",
+        "INH": "Inhalation",
+
+    }
+    delivery_method = models.CharField(max_length=3, choices=delivery_methods,default="Pill")
+    date_added=models.DateField(default=timezone.now,editable=False)
     def __str__(self):
         return(f"Name: {self.med_name}, Delivery Method: {self.delivery_method}, Date Added: {self.date_added}, ID:{self.id}")
     
