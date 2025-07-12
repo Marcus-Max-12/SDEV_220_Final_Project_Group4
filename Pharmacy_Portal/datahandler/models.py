@@ -12,7 +12,11 @@ class Client(models.Model):
     def __str__(self):
         return[f"{self.client_name} - {self.client_phone_number}"]
     
+<<<<<<< HEAD
 class Prescription(Client):
+=======
+class Prescription(Client)):
+>>>>>>> 2d04d35aa61e34b21b3d2bdf48e26c561274a64b
     # prescription fields
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="prescriptions")
     medication = models.CharField(max_length=100)
