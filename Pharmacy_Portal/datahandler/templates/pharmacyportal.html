@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <section style="float:left;">
         <h1>Medicines</h1>
     
@@ -16,8 +17,14 @@
             <br>
             {% endfor %}
         </div>
+    
         <br>
         <button onclick="location.href='{% url 'new_med' %}'">Add Medicine</button>
+        <div>
+        <form class="logout" action="{% url 'logout' %}" method = "POST">
+            {% csrf_token %}
+            <button class="logout-button">Logout</button>
+        </form>    
     </section>
     <section style="float:right;">
         <h1>Prescriptions</h1>
@@ -25,5 +32,7 @@
 
         </div>
     </section>
+
+    </div>
 </body>
 </html>
