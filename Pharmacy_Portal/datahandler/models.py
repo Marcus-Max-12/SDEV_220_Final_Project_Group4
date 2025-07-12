@@ -2,9 +2,19 @@ import uuid, datetime
 from django.conf import settings
 from django.db import models
 
-class Prescription(models.Model):
+class Client(models.Model):
+    client_name = models.CharField(max_length=100)
+    client_phone_number = models.CharField(max_length=10) #no spaces in phone 
+    client_email = models.CharField(max_length=40)
+    client_address = models.CharField(max_length=50)
+    client_zip = models.CharField(max_length=5)
+    
+    def __str__(self):
+        return[f"{self.client_name} - {self.client_phone_number}"]
+    
+class Prescription(Client):
     # prescription fields
-    patient_name = models.CharField(max_length=100)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="prescriptions")
     medication = models.CharField(max_length=100)
     doctor_name = models.CharField(max_length=100)
     dosage = models.CharField(max_length=50)
@@ -16,6 +26,8 @@ class Prescription(models.Model):
     Link Prescriptions to doctors
     prescribed_by = models.ForiegnKey(User)
     '''
+    #If we want to get all prescriptions for a client
+    #prescriptions = client.prescriptions.all()
 
     def __str__(self):
         return f"{self.patient_name} - {self.medication} ({self.date_prescribed})"
