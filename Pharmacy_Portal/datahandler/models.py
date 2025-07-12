@@ -26,6 +26,8 @@ class Prescription(Client)):
     Link Prescriptions to doctors
     prescribed_by = models.ForiegnKey(User)
     '''
+    #If we want to get all prescriptions for a client
+    #prescriptions = client.prescriptions.all()
 
     def __str__(self):
         return f"{self.patient_name} - {self.medication} ({self.date_prescribed})"
