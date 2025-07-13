@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
-<body>
+<body style="background-color:rgb(196, 193, 214);">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <section style="float:left;">
+    <section style="position: absolute;left: 0px;margin:auto">
         <h1>Medicines</h1>
     
-        <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px;"
+        <div style="border: 2px solid black; padding: 10px; max-width: 400px; width: 400px; height: 500px; overflow-y: scroll;"
     >
     
             {% for med in meds %}
-                <div onclick="location.href='selected_med/{{ med.id }}/'" style="border: 1px solid black; padding: 10px;">
+                <div onclick="location.href='selected_med/{{ med.id }}/'" style="border: 1px solid black; padding: 10px;background-color: rgb(163, 93, 230);">
                     <p>Medicine Name: <b>{{med.med_name|linebreaksbr}}</b></p>
                     <p>Delivery Method: <b>{{med.delivery_method}}</b></p>
                     <time>Date Added: <b>{{ med.date_added }}</b></time>
@@ -21,15 +21,20 @@
         <br>
         <button onclick="location.href='{% url 'new_med' %}'">Add Medicine</button>
         <div>
-        <form class="logout" action="{% url 'logout' %}" method = "POST">
+        <form class="logout" action="{% url 'logout' %}" method = "POST" style="padding-top: 25px;">
             {% csrf_token %}
             <button class="logout-button">Logout</button>
         </form>    
     </section>
-    <section style="float:right;">
-        <h1>Prescriptions</h1>
-        <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px;">
+    <section style=" position: absolute;right: 0px;margin:auto">
+        <h1>Clients</h1>
+        <div style="border: 2px solid black; padding: 10px; max-width: 400px; width: 400px; height: 500px; text-align: center; overflow-y: scroll;">
 
+        </div>
+    </section>
+    <section style="position: absolute;right: 650px;margin:auto">
+        <h1>Prescriptions</h1>
+        <div style="border: 2px solid black; padding: 10px; max-width: 400px; width: 400px; height: 500px; overflow-y: scroll;">
         </div>
     </section>
 
