@@ -28,9 +28,20 @@
     </section>
     <section style=" position: absolute;right: 0px;margin:auto">
         <h1>Clients</h1>
-        <div style="border: 2px solid black; padding: 10px; max-width: 400px; width: 400px; height: 500px; text-align: center; overflow-y: scroll;">
-
-        </div>
+    <div style="border: 2px solid black; padding: 10px; max-width: 400px; width: 400px; height: 500px; text-align: left; overflow-y: scroll;">
+        {% for client in clients %}
+            <div onclick="location.href='selected_client/{{ client.id }}/'" style="border: 1px solid black; padding: 10px; background-color: rgb(163, 93, 230); cursor: pointer;">
+                <p>Client Name: <b>{{ client.client_name|linebreaksbr }}</b></p>
+                <p>Phone Number: <b>{{ client.client_phone_number }}</b></p>
+                <p>Email: <b>{{ client.client_email }}</b></p>
+                <p>Address: <b>{{ client.client_address }}</b></p>
+                <p>ZIP: <b>{{ client.client_zip }}</b></p>
+            </div>
+            <br>
+        {% endfor %}
+    </div>
+    <br>
+    <button onclick="location.href='{% url 'new_client' %}'">Add Client</button>
     </section>
     <section style="position: absolute;right: 650px;margin:auto">
         <h1>Prescriptions</h1>
