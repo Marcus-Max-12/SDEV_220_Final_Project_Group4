@@ -24,8 +24,8 @@ def selected_med(request, med_id): #When you click one of the medicines in the l
 @login_required(login_url='/')
 def selected_client(request, auto_increment_id): #When you click one of the clients in the list, it will go to a dynamic url for that medicine.
 
-    client = Client.objects.filter(id =auto_increment_id).first()
-    return render(request, 'selected_client.html', {'client': client})
+    selected = Client.objects.filter(id =auto_increment_id).first()
+    return render(request, 'selected_client.html', {'selected': selected})
 
 
 
@@ -36,8 +36,8 @@ def delete_med(request, selected_id): #Allows the user to delete a selected medi
     return redirect('pharmacyportal')
 
 @login_required(login_url='/')
-def delete_client(request, client_name): #Allows the user to delete a selected client in the dynamic URL
-    selected = Client.objects.filter(client_name=client_name).first()
+def delete_client(request, auto_increment_id): #Allows the user to delete a selected client in the dynamic URL
+    selected = Client.objects.filter(id=auto_increment_id).first()
     selected.delete()
     return redirect('pharmacyportal')
 

@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db import models
 
 class Client(models.Model):
-    auto_increment_id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     client_name = models.CharField(max_length=100)
     client_phone_number = models.CharField(max_length=10) #no spaces in phone 
     client_email = models.CharField(max_length=40)

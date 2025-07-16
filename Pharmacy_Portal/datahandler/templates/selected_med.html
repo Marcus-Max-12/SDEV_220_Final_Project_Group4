@@ -8,7 +8,7 @@
         <h4>ID: {{ selected.id }}</h4>
 
     </div>
-            <form action="/pharmacyportal/delete_med/{{ selected.id }}/" onsubmit="return confirm('Are you sure?');" style="padding-top: 25px;">
+            <form action="/pharmacyportal/delete_med/{{ selected.auto_increment_id }}/" onsubmit="return confirm('Are you sure?');" style="padding-top: 25px;">
             <button type="submit">Delete?</button>
         </form>
 </body>
