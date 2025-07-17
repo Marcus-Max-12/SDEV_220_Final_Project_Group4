@@ -1,47 +1,67 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'landingpage/css/landingpage.css' %}">
+</head>
 <body>
-    <section style="float:left;">
+    <!-- Left Section - Medicines -->
+    <section class="left-section">
         <h1>Medicines</h1>
-    
-        <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px;"
-    >
-    
+        <div class="panel">
             {% for med in meds %}
-                <div onclick="location.href='selected_med/{{ med.id }}/'" style="border: 1px solid black; padding: 10px;">
+                <div class="item" onclick="location.href='selected_med/{{ med.id }}/'">
                     <p>Medicine Name: <b>{{med.med_name|linebreaksbr}}</b></p>
                     <p>Delivery Method: <b>{{med.delivery_method}}</b></p>
                     <time>Date Added: <b>{{ med.date_added }}</b></time>
                 </div>
-            <br>
             {% endfor %}
         </div>
-        <br>
         <button onclick="location.href='{% url 'new_med' %}'">Add Medicine</button>
+        <form class="logout" action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <button class="logout-button">Logout</button>
+        </form>
     </section>
-    <section style="float:right; margin-left: 20px;">
+
+    <!-- Center Section - Clients -->
+    <section class="center-section">
+        <h1>Clients</h1>
+        <div class="panel">
+            {% for client in clients %}
+                <div class="item" onclick="location.href='selected_client/{{ client.id }}/'">
+                    <p>Client Name: <b>{{ client.client_name|linebreaksbr }}</b></p>
+                    <p>Phone Number: <b>{{ client.client_phone_number }}</b></p>
+                    <p>Email: <b>{{ client.client_email }}</b></p>
+                    <p>Address: <b>{{ client.client_address }}</b></p>
+                    <p>ZIP: <b>{{ client.client_zip }}</b></p>
+                </div>
+            {% endfor %}
+        </div>
+        <button onclick="location.href='{% url 'new_client' %}'">Add Client</button>
+    </section>
+
+    <!-- Right Section - Prescriptions -->
+    <section class="right-section">
         <h1>Prescriptions</h1>
-        <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px;">
+        <div class="panel">
             {% for pres in prescription %}
-                 <div style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
-                <p>Patient: <b>{{ pres.patient_name }}</b></p>
-                <p>Medication: <b>{{ pres.medication }}</b></p>
-                <p>Doctor: <b>{{ pres.doctor_name }}</b></p>
-                <p>Dosage: <b>{{ pres.dosage }}</b></p>
-                <p>Quantity: <b>{{ pres.quantity }}</b></p>
-                <p>Status: <b>{% if pres.fulfillment %}fulfilled{% else %}Pending{% endif %}</b></p>
-                <time>Date: <b>{{ pres.date_prescribed }}</b></time>
-                </stlye>
-        
-            </div>
-        {% empty %}
-            <p>No prescriptions available.</p>
-        {% endfor %}
-    </div>
-    <br>
-    <button onclick="location.href='{% url 'new_pres' %}'">Add Prescription</button>
-    <br>
-    <button onclick="location.href='{% url 'list_pres' %}'">View Prescriptions</button>
-</section>
+                <div class="item">
+                    <p>Patient: <b>{{ pres.patient_name }}</b></p>
+                    <p>Medication: <b>{{ pres.medication }}</b></p>
+                    <p>Doctor: <b>{{ pres.doctor_name }}</b></p>
+                    <p>Dosage: <b>{{ pres.dosage }}</b></p>
+                    <p>Quantity: <b>{{ pres.quantity }}</b></p>
+                    <p>Status: <b>{% if pres.fulfillment %}fulfilled{% else %}Pending{% endif %}</b></p>
+                    <time>Date: <b>{{ pres.date_prescribed }}</b></time>
+                </div>
+            {% empty %}
+                <p>No prescriptions available.</p>
+            {% endfor %}
+        </div>
+        <button onclick="location.href='{% url 'new_pres' %}'">Add Prescription</button>
+        <button onclick="location.href='{% url 'list_pres' %}'">View Prescriptions</button>
+    </section>
 </body>
 </html>

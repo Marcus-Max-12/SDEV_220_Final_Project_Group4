@@ -1,0 +1,17 @@
+{% block content %}
+<body style="background-color:rgb(196, 193, 214);">
+    <div style="border: 2px solid black; max-width: 400px; width: 400px;background-color: rgb(163, 93, 230);">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <h2>Client Name: {{ selected.client_name }}</h2>
+        <h4>Phone Number: {{ selected.client_phone_number}}</h4>
+        <h4>E-mail: {{selected.client_email }}</h4>
+        <h4>Address: {{ selected.client_address }}</h4>
+        <h4>ZIP: {{ selected.client_zip }}</h4>
+        
+
+    </div>
+            <form action="/pharmacyportal/delete_client/{{ selected.id }}/" onsubmit="return confirm('Are you sure?');" style="padding-top: 25px;">
+            <button type="submit">Delete?</button>
+        </form>
+</body>
+{% endblock %}

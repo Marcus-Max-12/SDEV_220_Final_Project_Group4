@@ -2,6 +2,13 @@
 <div class="container mt-4">
   <h2 class="mb-4">Prescription Details</h2>
   
+  <!-- Add messages display -->
+  {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
   <div class="card">
     <div class="card-body">
       <form method="post">
@@ -11,30 +18,31 @@
         <div class="mb-3">
           <label class="form-label">Patient Name</label>
           <input type="text" class="form-control" name="patient_name" 
-                 value="{{ prescription.patient_name }}">
+                 value="{{ prescription.patient_name }}" required>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Medication</label>
           <input type="text" class="form-control" name="medication" 
-                 value="{{ prescription.medication }}">
+                 value="{{ prescription.medication }}" required>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Dosage</label>
           <input type="text" class="form-control" name="dosage" 
-                 value="{{ prescription.dosage }}">
+                 value="{{ prescription.dosage }}" required>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Quantity</label>
           <input type="number" class="form-control" name="quantity" 
-                 value="{{ prescription.quantity }}">
+                 value="{{ prescription.quantity }}" min="1" required>
         </div>
 
         <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" name="fulfillment" id="fulfillment" {% if pres.fulfillment %}checked{% endif %}>
-            <label class="form-check-label" for="fulfillment">Fulfilled</label>
+          <input type="checkbox" class="form-check-input" name="fulfillment" id="fulfillment" 
+                 {% if prescription.fulfillment %}checked{% endif %}>
+          <label class="form-check-label" for="fulfillment">Fulfilled</label>
         </div>
 
         <!-- Buttons -->
