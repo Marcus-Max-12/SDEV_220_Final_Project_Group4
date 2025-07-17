@@ -11,8 +11,9 @@ from django.contrib import messages
 def pharmacyportal(request): #Creates Phamarcy Portal
 
     meds=Medicine.objects.values() #Gets all Medicines
-    prescription = Prescription.objects.all()
-    return render(request, 'pharmacyportal.html', {'meds': meds,  'prescription': prescription}) #Passes Medicine to Phamarcy Portal HTML
+    prescription = Prescription.objects.all()# Gets all Prescriptions
+    clients=Client.objects.all() #Gets all Clients
+    return render(request, 'pharmacyportal.html', {'meds': meds,  'prescription': prescription, 'clients': clients}) #Passes Medicine to Phamarcy Portal HTML
 
 
 @login_required(login_url='/')
