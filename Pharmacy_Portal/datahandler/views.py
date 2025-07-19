@@ -44,12 +44,14 @@ def delete_client(request, auto_increment_id): #Allows the user to delete a sele
     return redirect('pharmacyportal')
 
 
-# Lists Prescriptions in order based on the date is was prescribed
+# Lists Prescriptions in order based on the date is was prescribed\
+@login_required(login_url='/')
 def list_pres(request):
     prescriptions = Prescription.objects.all().order_by('-date_prescribed')
     return render(request, 'list_pres.html', {'prescriptions': prescriptions})
 
 # viewing/edit a single prescription
+@login_required(login_url='/')
 def detail_pres(request, prescription_id):
     prescription = get_object_or_404(Prescription, id=prescription_id)
     
@@ -71,6 +73,7 @@ def detail_pres(request, prescription_id):
     return render(request, 'detail_pres.html', {'prescription': prescription})
 
 # delete a prescription
+@login_required(login_url='/')
 def delete_pres(request, prescription_id):
     prescription = get_object_or_404(Prescription, id=prescription_id)
     if request.method == 'POST':
@@ -80,6 +83,7 @@ def delete_pres(request, prescription_id):
 
 
 # Create a new Prescription
+@login_required(login_url='/')
 def new_pres(request):
     if request.method == "POST":
         form = PrescriptionForms(request.POST)

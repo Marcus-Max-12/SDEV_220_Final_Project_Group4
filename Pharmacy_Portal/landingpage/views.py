@@ -38,6 +38,8 @@ def landingpage(request):
                 return(redirect(request.POST.get('next')))
             else:
                 return redirect("pharmacyportal/")
+        else:
+           return redirect("landingpage") 
     else:
         form = AuthenticationForm()
         return render(request, 'landingpage.html', { "form": form})
