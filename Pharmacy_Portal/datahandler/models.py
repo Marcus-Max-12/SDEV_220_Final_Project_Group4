@@ -14,10 +14,12 @@ class Client(models.Model):
     
     def __str__(self):
         return[f"{self.client_name} - {self.client_phone_number}"]
+
+
     
-class Prescription(Client):
+class Prescription(models.Model):
     # prescription fields
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="prescriptions")
+    patient_name = models.CharField(max_length=100)
     medication = models.CharField(max_length=100)
     doctor_name = models.CharField(max_length=100)
     dosage = models.CharField(max_length=50)
@@ -29,10 +31,8 @@ class Prescription(Client):
     Link Prescriptions to doctors
     prescribed_by = models.ForiegnKey(User)
     '''
-    #If we want to get all prescriptions for a client
-    #prescriptions = client.prescriptions.all()
 
-    def __str__(self):
+    def str(self):
         return f"{self.patient_name} - {self.medication} ({self.date_prescribed})"
 
 
