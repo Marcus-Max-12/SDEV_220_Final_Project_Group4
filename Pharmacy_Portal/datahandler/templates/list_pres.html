@@ -1,0 +1,62 @@
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Prescriptions</h2>
+  
+  <!-- Search Bar -->
+  <form method="get" class="mb-4">
+    <div class="input-group">
+      <input type="text" name="q" class="form-control" placeholder="Search by patient or medication...">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+
+  <!-- Prescriptions Table -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Patient</th>
+        <th>Medication</th>
+        <th>Dosage</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for prescription in prescriptions %}
+      <tr>
+        <td>{{ prescription.patient_name }}</td>
+        <td>{{ prescription.medication }}</td>
+        <td>{{ prescription.dosage }}</td>
+        <td>{{ prescription.date_prescribed|date:"M d, Y" }}</td>
+        <td>
+          <span class="badge {% if prescription.fulfillment %}bg-success{% else %}bg-warning{% endif %}">
+            {% if prescription.fulfillment %}Fulfilled{% else %}Pending{% endif %}
+          </span>
+        </td>
+        <td>
+          <a href="{% url 'detail_pres' prescription.id %}" class="btn btn-sm btn-info">View</a>
+          <form method="post" action="{% url 'delete_pres' prescription.id %}" onsubmit="return confirm('Are you sure?');"
+            style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="text-center">No prescriptions found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Add New Prescription Button -->
+  <a href="{% url 'new_pres' %}" class="btn btn-success mt-3">
+    <i class="bi bi-plus-circle"></i> Add New Prescription
+  </a>
+  <br>
+  <a href="{% url 'pharmacyportal' %}" class="btn btn-sm btn-info">Home</a>
+</div>
+{% endblock %}

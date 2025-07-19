@@ -1,7 +1,32 @@
 import uuid, datetime
 from django.utils import timezone
+from django.utils import timezone
 from django.conf import settings
 from django.db import models
+
+class Client(models.Model):
+    id = models.AutoField(primary_key=True)
+    client_name = models.CharField(max_length=100)
+    client_phone_number = models.CharField(max_length=10) #no spaces in phone 
+    client_email = models.CharField(max_length=40)
+    client_address = models.CharField(max_length=50)
+    client_zip = models.CharField(max_length=5)
+    
+    def __str__(self):
+        return[f"{self.client_name} - {self.client_phone_number}"]
+
+
+class Client(models.Model):
+    id = models.AutoField(primary_key=True)
+    client_name = models.CharField(max_length=100)
+    client_phone_number = models.CharField(max_length=10) #no spaces in phone 
+    client_email = models.CharField(max_length=40)
+    client_address = models.CharField(max_length=50)
+    client_zip = models.CharField(max_length=5)
+    
+    def __str__(self):
+        return[f"{self.client_name} - {self.client_phone_number}"]
+
 
 class Client(models.Model):
     client_name = models.CharField(max_length=100)
@@ -50,4 +75,3 @@ class Medicine(models.Model):
     date_added=models.DateField(default=timezone.now,editable=False)
     def __str__(self):
         return(f"Name: {self.med_name}, Delivery Method: {self.delivery_method}, Date Added: {self.date_added}, ID:{self.id}")
-    
