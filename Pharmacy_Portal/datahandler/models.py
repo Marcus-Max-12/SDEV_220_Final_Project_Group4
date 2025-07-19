@@ -14,29 +14,6 @@ class Client(models.Model):
     
     def __str__(self):
         return[f"{self.client_name} - {self.client_phone_number}"]
-
-
-class Client(models.Model):
-    id = models.AutoField(primary_key=True)
-    client_name = models.CharField(max_length=100)
-    client_phone_number = models.CharField(max_length=10) #no spaces in phone 
-    client_email = models.CharField(max_length=40)
-    client_address = models.CharField(max_length=50)
-    client_zip = models.CharField(max_length=5)
-    
-    def __str__(self):
-        return[f"{self.client_name} - {self.client_phone_number}"]
-
-
-class Client(models.Model):
-    client_name = models.CharField(max_length=100)
-    client_phone_number = models.CharField(max_length=10) #no spaces in phone 
-    client_email = models.CharField(max_length=40)
-    client_address = models.CharField(max_length=50)
-    client_zip = models.CharField(max_length=5)
-    
-    def __str__(self):
-        return[f"{self.client_name} - {self.client_phone_number}"]
     
 class Prescription(Client):
     # prescription fields

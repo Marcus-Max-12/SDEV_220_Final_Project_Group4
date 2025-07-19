@@ -13,20 +13,5 @@
     </form>
     <button class="create-account" onclick="location.href='register'">Create Account?</button>
     </div>
-{% block content %}
-<body style="background-color:rgb(196, 193, 214);">
-    <h1>Login</h1>
-    <div>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <form class="form-with-validation" method="POST">
-        {% csrf_token %}
-        {{ form}}
-        {% if request.GET.next %}
-            <input type="hidden" name="next" value="{{ request.GET.next }}" />
-        {% endif %}
-        <button class="form-submit">Submit</button>
-    </form>
-    <button class="create-account" onclick="location.href='register'">Create Account?</button>
-    </div>
 </body>
 {% endblock %}
