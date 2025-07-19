@@ -20,3 +20,5 @@ $RECYCLE.BIN/
 /landingpage/__pycache__/*
 
 __pycache__/
+datahandler/migrations/*
+landingpage/migrations/*
