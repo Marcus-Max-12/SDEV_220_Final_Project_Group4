@@ -14,3 +14,11 @@ $RECYCLE.BIN/
 .vscode/
 .history/
 *.code-workspace
+
+/datahandler/__pycache__/*
+/Pharmacy_Portal/__pycache__/*
+/landingpage/__pycache__/*
+
+__pycache__/
+datahandler/migrations/*
+landingpage/migrations/*

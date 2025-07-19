@@ -1,0 +1,15 @@
+{% block content %}
+<body style="background-color:rgb(196, 193, 214);">
+    <div style="border: 2px solid black; max-width: 400px; width: 400px;background-color: rgb(163, 93, 230);">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <h2>Medicine Name: {{ selected.med_name }}</h2>
+        <h4>Delivery Method: {{ selected.delivery_method }}</h4>
+        <h4>Date Added {{selected.date_added }}</h4>
+        <h4>ID: {{ selected.id }}</h4>
+
+    </div>
+            <form action="/pharmacyportal/delete_med/{{ selected.id }}/" onsubmit="return confirm('Are you sure?');" style="padding-top: 25px;">
+            <button type="submit">Delete?</button>
+        </form>
+</body>
+{% endblock %}

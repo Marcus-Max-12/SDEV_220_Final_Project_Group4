@@ -13,6 +13,21 @@ def create_account(request):
     return render(request, "create_account.html", {"form" : form })
 
 
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login
+
+def create_account(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            login(request, form.save())
+            return redirect('/pharmacyportal')
+    else:
+        form = UserCreationForm()
+    return render(request, "create_account.html", {"form" : form })
+
+
 
 def landingpage(request):
     if request.method == "POST":

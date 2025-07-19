@@ -106,11 +106,18 @@ def selected_med(request, med_id): #When you click one of the medicines in the l
 
 
 @login_required(login_url='/')
+
+
+@login_required(login_url='/')
 def delete_med(request, selected_id): #Allows the user to delete a selected medicine in the dynamic URL
     selected = Medicine.objects.filter(id=selected_id).first()
     selected.delete()
     return redirect('pharmacyportal')
 
+
+
+
+@login_required(login_url='/')
 
 
 
