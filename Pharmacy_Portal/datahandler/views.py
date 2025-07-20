@@ -10,7 +10,7 @@ from django.contrib import messages
 @login_required(login_url='/')
 def pharmacyportal(request): #Creates Phamarcy Portal
 
-    meds=Medicine.objects.values() #Gets all Medicines
+    meds=Medicine.objects.all() #Gets all Medicines
     prescription = Prescription.objects.all()# Gets all Prescriptions
     clients=Client.objects.all() #Gets all Clients
     return render(request, 'pharmacyportal.html', {'meds': meds,  'prescription': prescription, 'clients': clients}) #Passes Medicine to Phamarcy Portal HTML
@@ -54,11 +54,13 @@ def list_pres(request):
 @login_required(login_url='/')
 def detail_pres(request, prescription_id):
     prescription = get_object_or_404(Prescription, id=prescription_id)
-    
+    form = PrescriptionForms(request.POST)
     if request.method == "POST":
         # Manually update each field from the POST data
         prescription.patient_name = request.POST.get('patient_name')
-        prescription.medication = request.POST.get('medication')
+        med_id = request.POST.get('medication')
+        selected = Medicine.objects.filter(id=med_id).first()
+        prescription.medication = selected
         prescription.dosage = request.POST.get('dosage')
         prescription.quantity = request.POST.get('quantity')
         prescription.fulfillment = 'fulfillment' in request.POST  # Checkbox handling
@@ -70,7 +72,7 @@ def detail_pres(request, prescription_id):
         except Exception as e:
             messages.error(request, f"Error updating prescription: {e}")
     
-    return render(request, 'detail_pres.html', {'prescription': prescription})
+    return render(request, 'detail_pres.html', {'prescription': prescription, 'form': form})
 
 # delete a prescription
 @login_required(login_url='/')

@@ -49,7 +49,7 @@
             {% for pres in prescription %}
                 <div class="item">
                     <p>Patient: <b>{{ pres.patient_name }}</b></p>
-                    <p>Medication: <b>{{ pres.medication }}</b></p>
+                    <p>Medication: <b>{{ pres.medication.med_name }}</b></p>
                     <p>Doctor: <b>{{ pres.doctor_name }}</b></p>
                     <p>Dosage: <b>{{ pres.dosage }}</b></p>
                     <p>Quantity: <b>{{ pres.quantity }}</b></p>
