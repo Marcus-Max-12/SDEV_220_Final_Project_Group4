@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from django.db import IntegrityError
 
 @login_required(login_url='/')
 def pharmacyportal(request): #Creates Phamarcy Portal
@@ -117,9 +117,12 @@ def selected_med(request, med_id): #When you click one of the medicines in the l
 @login_required(login_url='/')
 def delete_med(request, selected_id): #Allows the user to delete a selected medicine in the dynamic URL
     selected = Medicine.objects.filter(id=selected_id).first()
-    selected.delete()
-    return redirect('pharmacyportal')
-
+    try:
+        selected.delete()
+        return redirect('pharmacyportal')
+    except IntegrityError:
+        messages.error(request,'Medicine is Tied to One or More Prescriptions')
+        return render(request, 'selected_med.html', {'selected': selected})
 
 
 
