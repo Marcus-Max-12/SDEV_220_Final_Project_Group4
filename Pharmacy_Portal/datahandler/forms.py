@@ -17,4 +17,4 @@ class create_medicine(forms.ModelForm):
 class PrescriptionForms(forms.ModelForm):
     class Meta:
         model = Prescription
-        fields = ['client', 'doctor_name', 'medication', 'dosage', 'quantity']
+        fields = ('patient_name', 'doctor_name', 'medication', 'dosage', 'quantity')
