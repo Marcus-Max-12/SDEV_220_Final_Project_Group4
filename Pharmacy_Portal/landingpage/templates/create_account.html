@@ -1,10 +1,87 @@
 {% block content %}
-    <h1>Register a New Account</h1>
-    <form class="form-with-validation" method="POST">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        {% csrf_token %}
-        {{ form}}
-        <button class="form-submit">Submit</button>
-    </form>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+        crossorigin="anonymous">
 
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .card {
+      border-radius: 10px;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #343a40;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+      display: block;
+      color: #333;
+    }
+
+    .field-help {
+      font-size: 0.85rem;
+      color: #6c757d;
+      margin-bottom: 0.5rem;
+    }
+
+    input, select {
+      border-radius: 5px !important;
+    }
+
+    .form-control {
+      margin-bottom: 1rem;
+    }
+
+    .btn-success {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .text-muted {
+      font-size: 0.9rem;
+    }
+  </style>
+
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow p-4" style="width: 100%; max-width: 480px;">
+      <h2 class="text-center mb-4">Create Your Account</h2>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        {% for field in form %}
+          <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+            {# Optional: Show help_text if it's defined in the form #}
+            {% if field.help_text %}
+              <small class="field-help">{{ field.help_text }}</small>
+            {% endif %}
+
+            {{ field }}
+
+            {% if field.errors %}
+              <div class="text-danger small">{{ field.errors|striptags }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-success btn-block mt-2">Create Account</button>
+      </form>
+
+      <hr class="my-4">
+
+      <div class="text-center">
+        <span class="text-muted">Already registered?</span><br>
+        <a href="/login" class="btn btn-outline-primary mt-2">Log In</a>
+      </div>
+    </div>
+  </div>
 {% endblock %}
