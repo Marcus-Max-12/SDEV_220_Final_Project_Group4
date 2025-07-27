@@ -1,11 +1,51 @@
 {% block content %}
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+        crossorigin="anonymous">
 
-<div>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<h2>{{ selected.med_name }}</h2>
-<p>{{ selected.id }}</p>
-<form action="/pharmacyportal/delete_med/{{ selected.id }}/" onsubmit="return confirm('Are you sure?');">
-<button type="submit">Delete?</button>
-</form>
-</div>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .card {
+      max-width: 500px;
+      margin: 80px auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      background-color: white;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .btn-custom {
+      width: 100%;
+      font-weight: 600;
+      padding: 10px;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-custom:hover {
+      opacity: 0.95;
+    }
+  </style>
+
+  <div class="card text-center">
+    <h2>{{ selected.med_name }}</h2>
+    <p><strong>Medicine ID:</strong> {{ selected.id }}</p>
+
+    <form action="/pharmacyportal/delete_med/{{ selected.id }}/" method="POST" onsubmit="return confirm('Are you sure you want to delete this medicine?');">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger btn-custom mb-2">🗑️ Delete Medicine</button>
+    </form>
+
+    <a href="/pharmacyportal/" class="btn btn-outline-secondary btn-custom">🔙 Back to List</a>
+  </div>
 {% endblock %}
