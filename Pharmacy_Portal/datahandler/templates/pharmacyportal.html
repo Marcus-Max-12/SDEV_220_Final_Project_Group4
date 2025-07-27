@@ -1,38 +1,113 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+        crossorigin="anonymous">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .dashboard-container {
+      max-width: 1300px;
+      margin: auto;
+      padding-top: 40px;
+    }
+
+    .section-box {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .scroll-box {
+      height: 450px;
+      overflow-y: auto;
+      border-radius: 5px;
+      padding: 10px;
+      background-color: #fdfdfd;
+    }
+
+    .med-card {
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      padding: 12px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .med-card:hover {
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      background-color: #fafafa;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .btn-custom {
+      width: 100%;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 10px 0;
+      transition: all 0.2s ease;
+    }
+
+    .btn-custom:hover {
+      opacity: 0.95;
+    }
+
+    .gap-2 > * + * {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
 <body>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <section style="float:left;">
-        <h1>Medicines</h1>
-    
-        <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px;"
-    >
-    
+  <div class="container dashboard-container">
+    <div class="row">
+      <!-- Medicines -->
+      <div class="col-md-6 mb-4">
+        <div class="section-box">
+          <h1>Medicines</h1>
+          <div class="scroll-box">
             {% for med in meds %}
-                <div onclick="location.href='selected_med/{{ med.id }}/'" style="border: 1px solid black; padding: 10px;">
-                    <p>Medicine Name: <b>{{med.med_name|linebreaksbr}}</b></p>
-                    <p>Delivery Method: <b>{{med.delivery_method}}</b></p>
-                    <time>Date Added: <b>{{ med.date_added }}</b></time>
-                </div>
-            <br>
+              <div onclick="location.href='selected_med/{{ med.id }}/'" class="med-card">
+                <p><strong>Medicine Name:</strong> {{ med.med_name|linebreaksbr }}</p>
+                <p><strong>Delivery Method:</strong> {{ med.delivery_method }}</p>
+                <p><strong>Date Added:</strong> {{ med.date_added }}</p>
+              </div>
             {% endfor %}
-        </div>
-    
-        <br>
-        <button onclick="location.href='{% url 'new_med' %}'">Add Medicine</button>
-        <div>
-        <form class="logout" action="{% url 'logout' %}" method = "POST">
-            {% csrf_token %}
-            <button class="logout-button">Logout</button>
-        </form>    
-    </section>
-    <section style="float:right;">
-        <h1>Prescriptions</h1>
-        <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px;">
+          </div>
 
-        </div>
-    </section>
+          <div class="mt-4 gap-2 d-flex flex-column">
+            <button onclick="location.href='{% url 'new_med' %}'" class="btn btn-primary btn-custom">➕ Add Medicine</button>
 
+            <form action="{% url 'logout' %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-danger btn-custom">🚪 Logout</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prescriptions -->
+      <div class="col-md-6 mb-4">
+        <div class="section-box">
+          <h1>Prescriptions</h1>
+          <div class="scroll-box">
+            <!-- You can populate this later -->
+            <p class="text-muted">No prescriptions loaded yet.</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </body>
 </html>
