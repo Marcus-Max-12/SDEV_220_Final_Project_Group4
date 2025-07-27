@@ -1,5 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'landingpage/css/landingpage.css' %}">
+</head>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
@@ -70,13 +75,14 @@
 </head>
 
 <body>
-  <div class="container dashboard-container">
-    <div class="row">
-      <!-- Medicines -->
-      <div class="col-md-6 mb-4">
-        <div class="section-box">
-          <h1>Medicines</h1>
-          <div class="scroll-box">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <section style="float:left;">
+        <h1>Medicines</h1>
+    
+        <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px;"
+    >
+    
             {% for med in meds %}
               <div onclick="location.href='selected_med/{{ med.id }}/'" class="med-card">
                 <p><strong>Medicine Name:</strong> {{ med.med_name|linebreaksbr }}</p>
@@ -96,18 +102,52 @@
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Prescriptions -->
-      <div class="col-md-6 mb-4">
-        <div class="section-box">
-          <h1>Prescriptions</h1>
-          <div class="scroll-box">
-            <!-- You can populate this later -->
-            <p class="text-muted">No prescriptions loaded yet.</p>
-          </div>
+    <!-- Center Section - Clients -->
+    <section class="center-section">
+        <h1>Clients</h1>
+        <div class="panel">
+            {% for client in clients %}
+                <div class="item" onclick="location.href='selected_client/{{ client.id }}/'">
+                    <p>Client Name: <b>{{ client.client_name|linebreaksbr }}</b></p>
+                    <p>Phone Number: <b>{{ client.client_phone_number }}</b></p>
+                    <p>Email: <b>{{ client.client_email }}</b></p>
+                    <p>Address: <b>{{ client.client_address }}</b></p>
+                    <p>ZIP: <b>{{ client.client_zip }}</b></p>
+                </div>
+            {% endfor %}
         </div>
+        <button onclick="location.href='{% url 'new_client' %}'">Add Client</button>
+    </section>
+
+    <!-- Right Section - Prescriptions -->
+    <section class="right-section">
+        <h1>Prescriptions</h1>
+        <div class="panel">
+            {% for pres in prescription %}
+                <div class="item">
+                    <p>Patient: <b>{{ pres.patient_name }}</b></p>
+                    <p>Medication: <b>{{ pres.medication.med_name }}</b></p>
+                    <p>Doctor: <b>{{ pres.doctor_name }}</b></p>
+                    <p>Dosage: <b>{{ pres.dosage }}</b></p>
+                    <p>Quantity: <b>{{ pres.quantity }}</b></p>
+                    <p>Status: <b>{% if pres.fulfillment %}fulfilled{% else %}Pending{% endif %}</b></p>
+                    <time>Date: <b>{{ pres.date_prescribed }}</b></time>
+                    
+                </div>
+            
+            {% empty %}
+                <p>No prescriptions available.</p>
+            {% endfor %}
+        </div>
+        <button onclick="location.href='{% url 'new_pres' %}'">Add Prescription</button>
+        <button onclick="location.href='{% url 'list_pres' %}'">View Prescriptions</button>
+    </section>
+
+    </div>
       </div>
     </div>
-  </div>
+  </div>    
 </body>
 </html>
