@@ -105,44 +105,44 @@
     </section>
 
     <!-- Center Section - Clients -->
-    <section class="center-section">
-        <h1>Clients</h1>
-        <div class="panel">
-            {% for client in clients %}
-                <div class="item" onclick="location.href='selected_client/{{ client.id }}/'">
-                    <p>Client Name: <b>{{ client.client_name|linebreaksbr }}</b></p>
-                    <p>Phone Number: <b>{{ client.client_phone_number }}</b></p>
-                    <p>Email: <b>{{ client.client_email }}</b></p>
-                    <p>Address: <b>{{ client.client_address }}</b></p>
-                    <p>ZIP: <b>{{ client.client_zip }}</b></p>
-                </div>
-            {% endfor %}
-        </div>
-        <button onclick="location.href='{% url 'new_client' %}'">Add Client</button>
+    <section class="center-section" style="float:left; margin-left: 30px;">
+      <h1>Clients</h1>
+      <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px; background-color: white;">
+        {% for client in clients %}
+          <div onclick="location.href='selected_client/{{ client.id }}/'" class="med-card">
+            <p><strong>Client Name:</strong> {{ client.client_name|linebreaksbr }}</p>
+            <p><strong>Phone Number:</strong> {{ client.client_phone_number }}</p>
+            <p><strong>Email:</strong> {{ client.client_email }}</p>
+            <p><strong>Address:</strong> {{ client.client_address }}</p>
+            <p><strong>ZIP:</strong> {{ client.client_zip }}</p>
+          </div>
+        {% endfor %}
+      </div>
+      <button onclick="location.href='{% url 'new_client' %}'" class="btn btn-primary btn-custom mt-3">➕ Add Client</button>
     </section>
 
     <!-- Right Section - Prescriptions -->
-    <section class="right-section">
-        <h1>Prescriptions</h1>
-        <div class="panel">
-            {% for pres in prescription %}
-                <div class="item">
-                    <p>Patient: <b>{{ pres.patient_name }}</b></p>
-                    <p>Medication: <b>{{ pres.medication.med_name }}</b></p>
-                    <p>Doctor: <b>{{ pres.doctor_name }}</b></p>
-                    <p>Dosage: <b>{{ pres.dosage }}</b></p>
-                    <p>Quantity: <b>{{ pres.quantity }}</b></p>
-                    <p>Status: <b>{% if pres.fulfillment %}fulfilled{% else %}Pending{% endif %}</b></p>
-                    <time>Date: <b>{{ pres.date_prescribed }}</b></time>
-                    
-                </div>
-            
-            {% empty %}
-                <p>No prescriptions available.</p>
-            {% endfor %}
-        </div>
-        <button onclick="location.href='{% url 'new_pres' %}'">Add Prescription</button>
-        <button onclick="location.href='{% url 'list_pres' %}'">View Prescriptions</button>
+    <section class="right-section" style="float:left; margin-left: 30px;">
+      <h1>Prescriptions</h1>
+      <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px; background-color: white;">
+        {% for pres in prescription %}
+          <div class="med-card">
+            <p><strong>Patient:</strong> {{ pres.patient_name }}</p>
+            <p><strong>Medication:</strong> {{ pres.medication.med_name }}</p>
+            <p><strong>Doctor:</strong> {{ pres.doctor_name }}</p>
+            <p><strong>Dosage:</strong> {{ pres.dosage }}</p>
+            <p><strong>Quantity:</strong> {{ pres.quantity }}</p>
+            <p><strong>Status:</strong> {% if pres.fulfillment %}Fulfilled{% else %}Pending{% endif %}</p>
+            <p><strong>Date:</strong> {{ pres.date_prescribed }}</p>
+          </div>
+        {% empty %}
+          <p>No prescriptions available.</p>
+        {% endfor %}
+      </div>
+      <div class="mt-3 d-flex flex-column gap-2">
+        <button onclick="location.href='{% url 'new_pres' %}'" class="btn btn-primary btn-custom mb-2">➕ Add Prescription</button>
+        <button onclick="location.href='{% url 'list_pres' %}'" class="btn btn-outline-secondary btn-custom">📋 View Prescriptions</button>
+      </div>
     </section>
 
     </div>

@@ -1,62 +1,112 @@
-
 {% block content %}
-<div class="container mt-4">
-  <h2 class="mb-4">Prescriptions</h2>
-  
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Prescriptions</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <style>
+    body {
+      background-color: rgb(196, 193, 214);
+    }
+
+    .content-box {
+      max-width: 1000px;
+      margin: 50px auto;
+      background-color: white;
+      border: 2px solid black;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-custom {
+      font-weight: 600;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+    }
+
+    .search-bar .form-control {
+      border-radius: 0.25rem 0 0 0.25rem;
+    }
+
+    .search-bar .btn {
+      border-radius: 0 0.25rem 0.25rem 0;
+    }
+
+    .table-container {
+      max-height: 500px;
+      overflow-y: auto;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+    }
+
+    table th, table td {
+      vertical-align: middle !important;
+    }
+  </style>
+</head>
+<body>
+
+<div class="content-box">
+  <h2 class="mb-4 text-center">📋 Prescriptions</h2>
+
   <!-- Search Bar -->
-  <form method="get" class="mb-4">
+  <form method="get" class="mb-4 search-bar">
     <div class="input-group">
       <input type="text" name="q" class="form-control" placeholder="Search by patient or medication...">
-      <button type="submit" class="btn btn-primary">Search</button>
+      <button type="submit" class="btn btn-primary">🔍 Search</button>
     </div>
   </form>
 
   <!-- Prescriptions Table -->
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Patient</th>
-        <th>Medication</th>
-        <th>Dosage</th>
-        <th>Date</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for prescription in prescriptions %}
-      <tr>
-        <td>{{ prescription.patient_name }}</td>
-        <td>{{ prescription.medication.med_name  }}</td>
-        <td>{{ prescription.dosage }}</td>
-        <td>{{ prescription.date_prescribed|date:"M d, Y" }}</td>
-        <td>
-          <span class="badge {% if prescription.fulfillment %}bg-success{% else %}bg-warning{% endif %}">
-            {% if prescription.fulfillment %}Fulfilled{% else %}Pending{% endif %}
-          </span>
-        </td>
-        <td>
-          <a href="{% url 'detail_pres' prescription.id %}" class="btn btn-sm btn-info">View</a>
-          <form method="post" action="{% url 'delete_pres' prescription.id %}" onsubmit="return confirm('Are you sure?');"
-            style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-          </form>
-        </td>
-      </tr>
-      {% empty %}
-      <tr>
-        <td colspan="6" class="text-center">No prescriptions found.</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="table-container mb-3">
+    <table class="table table-striped mb-0">
+      <thead class="thead-dark">
+        <tr>
+          <th>Patient</th>
+          <th>Medication</th>
+          <th>Dosage</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for prescription in prescriptions %}
+        <tr>
+          <td>{{ prescription.patient_name }}</td>
+          <td>{{ prescription.medication.med_name }}</td>
+          <td>{{ prescription.dosage }}</td>
+          <td>{{ prescription.date_prescribed|date:"M d, Y" }}</td>
+          <td>
+            <span class="badge {% if prescription.fulfillment %}bg-success{% else %}bg-warning{% endif %}">
+              {% if prescription.fulfillment %}Fulfilled{% else %}Pending{% endif %}
+            </span>
+          </td>
+          <td>
+            <a href="{% url 'detail_pres' prescription.id %}" class="btn btn-sm btn-info">View</a>
+            <form method="post" action="{% url 'delete_pres' prescription.id %}" onsubmit="return confirm('Are you sure?');" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6" class="text-center">No prescriptions found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
-  <!-- Add New Prescription Button -->
-  <a href="{% url 'new_pres' %}" class="btn btn-success mt-3">
-    <i class="bi bi-plus-circle"></i> Add New Prescription
-  </a>
-  <br>
-  <a href="{% url 'pharmacyportal' %}" class="btn btn-sm btn-info">Home</a>
+  <!-- Buttons -->
+  <a href="{% url 'new_pres' %}" class="btn btn-success btn-custom">➕ Add New Prescription</a>
+  <a href="{% url 'pharmacyportal' %}" class="btn btn-outline-info btn-custom">🏠 Return to Home</a>
 </div>
+
+</body>
+</html>
 {% endblock %}

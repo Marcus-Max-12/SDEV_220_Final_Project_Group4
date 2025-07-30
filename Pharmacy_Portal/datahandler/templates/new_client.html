@@ -1,14 +1,39 @@
 {% block content %}
-<body style="background-color:rgb(196, 193, 214);"></body>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <h2> New Client </h2>
-    <form method="POST" class="new-client">{% csrf_token %}
-        {{ form }}
-        <button class="form-submit">Save</button>
-
-    </form>
-
-
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Client</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <style>
+        body {
+            background-color: rgb(196, 193, 214);
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .form-submit {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2 class="text-center mb-4">➕ New Client</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary btn-block form-submit">Save Client</button>
+            </form>
+        </div>
+    </div>
 </body>
+</html>
 {% endblock %}
