@@ -1,54 +1,94 @@
 {% block content %}
-<div class="container mt-4">
-  <h2 class="mb-4">Prescription Details</h2>
-  
-  <!-- Add messages display -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Prescription Details</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <style>
+    body {
+      background-color: rgb(196, 193, 214);
+    }
+
+    .form-wrapper {
+      max-width: 700px;
+      margin: 50px auto;
+      background-color: white;
+      border: 2px solid black;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-custom {
+      width: 100%;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 10px 0;
+      margin-bottom: 10px;
+    }
+
+    .alert {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-wrapper">
+  <h2 class="text-center mb-4">📝 Edit Prescription</h2>
+
+  <!-- Message Display -->
   {% if messages %}
     {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
     {% endfor %}
   {% endif %}
 
-  <div class="card">
-    <div class="card-body">
-      <form method="post">
-        {% csrf_token %}
-        
-        <!-- Form Fields -->
-        <div class="mb-3">
-          <label class="form-label">Patient Name</label>
-          <input type="text" class="form-control" name="patient_name" 
-                 value="{{ prescription.patient_name }}" required>
-        </div>
+  <form method="post">
+    {% csrf_token %}
 
-        <div class="mb-3">
-          <label class="form-label">Medication</label>
-          {{ form.medication }}
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Dosage</label>
-          <input type="text" class="form-control" name="dosage" 
-                 value="{{ prescription.dosage }}" required>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Quantity</label>
-          <input type="number" class="form-control" name="quantity" 
-                 value="{{ prescription.quantity }}" min="1" required>
-        </div>
-
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" name="fulfillment" id="fulfillment" 
-                 {% if prescription.fulfillment %}checked{% endif %}>
-          <label class="form-check-label" for="fulfillment">Fulfilled</label>
-        </div>
-
-        <!-- Buttons -->
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-        <a href="{% url 'list_pres' %}" class="btn btn-secondary">Cancel</a>
-      </form>
+    <!-- Patient Name -->
+    <div class="mb-3">
+      <label class="form-label">Patient Name</label>
+      <input type="text" class="form-control" name="patient_name" 
+             value="{{ prescription.patient_name }}" required>
     </div>
-  </div>
+
+    <!-- Medication Dropdown -->
+    <div class="mb-3">
+      <label class="form-label">Medication</label>
+      {{ form.medication }}
+    </div>
+
+    <!-- Dosage -->
+    <div class="mb-3">
+      <label class="form-label">Dosage</label>
+      <input type="text" class="form-control" name="dosage" 
+             value="{{ prescription.dosage }}" required>
+    </div>
+
+    <!-- Quantity -->
+    <div class="mb-3">
+      <label class="form-label">Quantity</label>
+      <input type="number" class="form-control" name="quantity" 
+             value="{{ prescription.quantity }}" min="1" required>
+    </div>
+
+    <!-- Fulfillment Checkbox -->
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" name="fulfillment" id="fulfillment" 
+             {% if prescription.fulfillment %}checked{% endif %}>
+      <label class="form-check-label" for="fulfillment">Fulfilled</label>
+    </div>
+
+    <!-- Action Buttons -->
+    <button type="submit" class="btn btn-primary btn-custom">💾 Save Changes</button>
+    <a href="{% url 'list_pres' %}" class="btn btn-outline-secondary btn-custom">↩️ Cancel</a>
+  </form>
 </div>
+
+</body>
+</html>
 {% endblock %}

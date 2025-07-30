@@ -5,65 +5,149 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'landingpage/css/landingpage.css' %}">
 </head>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+        crossorigin="anonymous">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .dashboard-container {
+      max-width: 1300px;
+      margin: auto;
+      padding-top: 40px;
+    }
+
+    .section-box {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .scroll-box {
+      height: 450px;
+      overflow-y: auto;
+      border-radius: 5px;
+      padding: 10px;
+      background-color: #fdfdfd;
+    }
+
+    .med-card {
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      padding: 12px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .med-card:hover {
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      background-color: #fafafa;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .btn-custom {
+      width: 100%;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 10px 0;
+      transition: all 0.2s ease;
+    }
+
+    .btn-custom:hover {
+      opacity: 0.95;
+    }
+
+    .gap-2 > * + * {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
 <body>
-    <!-- Left Section - Medicines -->
-    <section class="left-section">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <section style="float:left;">
         <h1>Medicines</h1>
-        <div class="panel">
+    
+        <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px;"
+    >
+    
             {% for med in meds %}
-                <div class="item" onclick="location.href='selected_med/{{ med.id }}/'">
-                    <p>Medicine Name: <b>{{med.med_name|linebreaksbr}}</b></p>
-                    <p>Delivery Method: <b>{{med.delivery_method}}</b></p>
-                    <time>Date Added: <b>{{ med.date_added }}</b></time>
-                </div>
+              <div onclick="location.href='selected_med/{{ med.id }}/'" class="med-card">
+                <p><strong>Medicine Name:</strong> {{ med.med_name|linebreaksbr }}</p>
+                <p><strong>Delivery Method:</strong> {{ med.delivery_method }}</p>
+                <p><strong>Date Added:</strong> {{ med.date_added }}</p>
+              </div>
             {% endfor %}
+          </div>
+
+          <div class="mt-4 gap-2 d-flex flex-column">
+            <button onclick="location.href='{% url 'new_med' %}'" class="btn btn-primary btn-custom">➕ Add Medicine</button>
+
+            <form action="{% url 'logout' %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-danger btn-custom">🚪 Logout</button>
+            </form>
+          </div>
         </div>
-        <button onclick="location.href='{% url 'new_med' %}'">Add Medicine</button>
-        <form class="logout" action="{% url 'logout' %}" method="POST">
-            {% csrf_token %}
-            <button class="logout-button">Logout</button>
-        </form>
+      </div>
     </section>
 
     <!-- Center Section - Clients -->
-    <section class="center-section">
-        <h1>Clients</h1>
-        <div class="panel">
-            {% for client in clients %}
-                <div class="item" onclick="location.href='selected_client/{{ client.id }}/'">
-                    <p>Client Name: <b>{{ client.client_name|linebreaksbr }}</b></p>
-                    <p>Phone Number: <b>{{ client.client_phone_number }}</b></p>
-                    <p>Email: <b>{{ client.client_email }}</b></p>
-                    <p>Address: <b>{{ client.client_address }}</b></p>
-                    <p>ZIP: <b>{{ client.client_zip }}</b></p>
-                </div>
-            {% endfor %}
-        </div>
-        <button onclick="location.href='{% url 'new_client' %}'">Add Client</button>
+    <section class="center-section" style="float:left; margin-left: 30px;">
+      <h1>Clients</h1>
+      <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px; background-color: white;">
+        {% for client in clients %}
+          <div onclick="location.href='selected_client/{{ client.id }}/'" class="med-card">
+            <p><strong>Client Name:</strong> {{ client.client_name|linebreaksbr }}</p>
+            <p><strong>Phone Number:</strong> {{ client.client_phone_number }}</p>
+            <p><strong>Email:</strong> {{ client.client_email }}</p>
+            <p><strong>Address:</strong> {{ client.client_address }}</p>
+            <p><strong>ZIP:</strong> {{ client.client_zip }}</p>
+          </div>
+        {% endfor %}
+      </div>
+      <button onclick="location.href='{% url 'new_client' %}'" class="btn btn-primary btn-custom mt-3">➕ Add Client</button>
     </section>
 
     <!-- Right Section - Prescriptions -->
-    <section class="right-section">
-        <h1>Prescriptions</h1>
-        <div class="panel">
-            {% for pres in prescription %}
-                <div class="item">
-                    <p>Patient: <b>{{ pres.patient_name }}</b></p>
-                    <p>Medication: <b>{{ pres.medication.med_name }}</b></p>
-                    <p>Doctor: <b>{{ pres.doctor_name }}</b></p>
-                    <p>Dosage: <b>{{ pres.dosage }}</b></p>
-                    <p>Quantity: <b>{{ pres.quantity }}</b></p>
-                    <p>Status: <b>{% if pres.fulfillment %}fulfilled{% else %}Pending{% endif %}</b></p>
-                    <time>Date: <b>{{ pres.date_prescribed }}</b></time>
-                </div>
-            {% empty %}
-                <p>No prescriptions available.</p>
-            {% endfor %}
-        </div>
-        <button onclick="location.href='{% url 'new_pres' %}'">Add Prescription</button>
-        <button onclick="location.href='{% url 'list_pres' %}'">View Prescriptions</button>
+    <section class="right-section" style="float:left; margin-left: 30px;">
+      <h1>Prescriptions</h1>
+      <div style="border: 2px solid black; padding: 10px; max-width: 400px; overflow-y: scroll; width: 400px; height: 500px; background-color: white;">
+        {% for pres in prescription %}
+          <div class="med-card">
+            <p><strong>Patient:</strong> {{ pres.patient_name }}</p>
+            <p><strong>Medication:</strong> {{ pres.medication.med_name }}</p>
+            <p><strong>Doctor:</strong> {{ pres.doctor_name }}</p>
+            <p><strong>Dosage:</strong> {{ pres.dosage }}</p>
+            <p><strong>Quantity:</strong> {{ pres.quantity }}</p>
+            <p><strong>Status:</strong> {% if pres.fulfillment %}Fulfilled{% else %}Pending{% endif %}</p>
+            <p><strong>Date:</strong> {{ pres.date_prescribed }}</p>
+          </div>
+        {% empty %}
+          <p>No prescriptions available.</p>
+        {% endfor %}
+      </div>
+      <div class="mt-3 d-flex flex-column gap-2">
+        <button onclick="location.href='{% url 'new_pres' %}'" class="btn btn-primary btn-custom mb-2">➕ Add Prescription</button>
+        <button onclick="location.href='{% url 'list_pres' %}'" class="btn btn-outline-secondary btn-custom">📋 View Prescriptions</button>
+      </div>
     </section>
 
     </div>
+      </div>
+    </div>
+  </div>    
 </body>
 </html>

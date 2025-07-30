@@ -1,14 +1,73 @@
 {% block content %}
-<body style="background-color:rgb(196, 193, 214);"></body>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <h2> New Medicine </h2>
-    <form method="POST" class="new-med">{% csrf_token %}
-        {{ form }}
-        <button class="form-submit">Save</button>
-        <button onclick="location.href='/pharmacyportal'">Return To Home</button>
+  <!-- Bootstrap 4 CSS -->
+  <body style="background-color:rgb(196, 193, 214);"></body>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+        crossorigin="anonymous">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      padding: 30px;
+      background-color: white;
+      max-width: 600px;
+      margin: 60px auto;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    label {
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+    }
+
+    .form-control {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-submit {
+      width: 100%;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 10px;
+    }
+
+    .text-danger {
+      font-size: 0.85rem;
+    }
+  </style>
+
+  <div class="card">
+    <h2>Add New Medicine</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+      
+      {% for field in form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+          {% endif %}
+          {{ field }}
+          {% if field.errors %}
+            <div class="text-danger">{{ field.errors|striptags }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <button type="submit" class="btn btn-primary form-submit">💾 Save</button>
     </form>
-
-
-
-</body>
+    <button onclick="location.href='/pharmacyportal'">Return To Home</button>
+  </div></body>
 {% endblock %}
